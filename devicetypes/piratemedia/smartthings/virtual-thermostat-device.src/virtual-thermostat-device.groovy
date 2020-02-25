@@ -1,13 +1,13 @@
 metadata {
-	definition (name: "Virtual Thermostat Device", namespace: "piratemedia/smartthings", author: "Eliot S.") {
+	definition (name: "Virtual Thermostat Device", namespace: "piratemedia/smartthings", author: "Eliot S.", vid: "generic-radiator-thermostat") {
 		capability "Actuator"
 		capability "Refresh"
 		capability "Sensor"
 		capability "Thermostat"
-		//capability "Thermostat Heating Setpoint"
+		capability "Thermostat Heating Setpoint"
 		capability "Thermostat Mode"
 		capability "Thermostat Operating State"
-		//capability "Thermostat Setpoint"
+		capability "Thermostat Setpoint"
 		capability "Temperature Measurement"
 		capability "Health Check"
 
@@ -44,7 +44,7 @@ metadata {
 	tiles(scale: 2) {
 		multiAttributeTile(name:"temperature", type:"thermostat", width:6, height:4, canChangeIcon: true) {
 			tileAttribute("device.temperature", key: "PRIMARY_CONTROL") {
-				attributeState("default", label:'${currentValue}°', unit: unitString())
+				attributeState("default", label:'${currentValue}', unit: unitString())
 			}
 			tileAttribute("device.thermostatSetpoint", key: "VALUE_CONTROL") {
 				attributeState("default", action: "levelUpDown")
@@ -66,7 +66,7 @@ metadata {
 			}
 		}
 		valueTile("temp2", "device.temperature", width: 2, height: 2, decoration: "flat") {
-			state("default", label:'${currentValue}°', icon:"https://raw.githubusercontent.com/eliotstocker/SmartThings-VirtualThermostat-WithDTH/master/device.png",
+			state("default", label:'${currentValue}', icon:"https://raw.githubusercontent.com/eliotstocker/SmartThings-VirtualThermostat-WithDTH/master/device.png",
 					backgroundColors: getTempColors(), canChangeIcon: true)
 		}
 		standardTile("thermostatMode", "device.thermostatMode", width:2, height:2, decoration: "flat") {
@@ -117,16 +117,16 @@ metadata {
 		}
         
         valueTile("tempSensor1", "device.temp1",  width: 1, height: 1, canChangeIcon: true, decoration: "flat") {
-			state "default", label:'${currentValue}°', defaultState: true
+			state "default", label:'${currentValue}', defaultState: true
 		}
         valueTile("tempSensor2", "device.temp2",  width: 1, height: 1, canChangeIcon: true, decoration: "flat") {
-			state "default", label:'${currentValue}°', defaultState: true
+			state "default", label:'${currentValue}', defaultState: true
 		}
         valueTile("tempSensor3", "device.temp3",  width: 1, height: 1, canChangeIcon: true, decoration: "flat") {
-			state "default", label:'${currentValue}°', defaultState: true
+			state "default", label:'${currentValue}', defaultState: true
 		}
         valueTile("tempSensor4", "device.temp4",  width: 1, height: 1, canChangeIcon: true, decoration: "flat") {
-			state "default", label:'${currentValue}°', defaultState: true
+			state "default", label:'${currentValue}', defaultState: true
 		}
         
         valueTile("todayTimeLabel", "timelabel", width: 3, height: 1, canChangeIcon: true, decoration: "flat") {
@@ -220,7 +220,7 @@ def getTempColors() {
 	}
 }
 
-def unitString() {  return shouldReportInCentigrade() ? "°C": "°F" }
+def unitString() {  return shouldReportInCentigrade() ? "C": "F" }
 def defaultTemp() { return shouldReportInCentigrade() ? 20 : 70 }
 def lowRange() { return shouldReportInCentigrade() ? 9 : 45 }
 def highRange() { return shouldReportInCentigrade() ? 32 : 90 }
